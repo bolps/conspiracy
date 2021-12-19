@@ -1,6 +1,7 @@
 {
-  "Arts": {
+  "Cluster": {
     "0": "Missing",
+    "Art": "Arts",
     "Architecture": "Arts",
     "Graphic design": "Arts",
     "Music": "Arts",
