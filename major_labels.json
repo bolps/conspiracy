@@ -1,7 +1,6 @@
-[
-  {
+{
+  "Arts": {
     "0": "Missing",
-    "Art": "Arts",
     "Architecture": "Arts",
     "Graphic design": "Arts",
     "Music": "Arts",
@@ -445,4 +444,4 @@
     "Physics and philosophy": "Science and Math",
     "Mechanical engineering and mining engineering": "Science and Math"
   }
-]
+}
