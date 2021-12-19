@@ -1,0 +1,74 @@
+{
+    "education":{
+       "1":"Less than high school",
+       "2":"High school",
+       "3":"University degree",
+       "4":"Graduate degree",
+       "0":"np.nan"
+    },
+    "urban":{
+       "1":"Rural (country side)",
+       "2":"Suburban",
+       "3":"Urban (town, city)",
+       "0":"np.nan"
+    },
+    "gender":{
+       "1":"Male",
+       "2":"Female",
+       "3":"Other",
+       "0":"np.nan"
+    },
+    "engnat":{
+       "1":"Native English speaker",
+       "2":"Non-native English speaker",
+       "0":"np.nan"
+    },
+    "hand":{
+       "1":"Right-handed",
+       "2":"Left-handed",
+       "3":"Ambidextrous",
+       "0":"np.nan"
+    },
+    "religion":{
+       "1":"Agnostic",
+       "2":"Atheist",
+       "3":"Buddhist",
+       "4":"Christian (Catholic)",
+       "5":"Christian (Mormon)",
+       "6":"Christian (Protestant)",
+       "7":"Christian (Other)",
+       "8":"Hindu",
+       "9":"Jewish",
+       "10":"Muslim",
+       "11":"Sikh",
+       "12":"Other",
+       "0":"np.nan"
+    },
+    "orientation":{
+       "1":"Heterosexual",
+       "2":"Bisexual",
+       "3":"Homosexual",
+       "4":"Asexual",
+       "5":"Other",
+       "0":"np.nan"
+    },
+    "race":{
+       "1":"Asian",
+       "2":"Arab",
+       "3":"Black",
+       "4":"White",
+       "5":"Other",
+       "0":"np.nan"
+    },
+    "voted":{
+       "1":"Yes",
+       "2":"No",
+       "0":"np.nan"
+    },
+    "married":{
+       "1":"Never married",
+       "2":"Currently married",
+       "3":"Previously married",
+       "0":"np.nan"
+    }
+ }
