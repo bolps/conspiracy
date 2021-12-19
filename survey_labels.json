@@ -4,30 +4,30 @@
        "2":"High school",
        "3":"University degree",
        "4":"Graduate degree",
-       "0":"np.nan"
+       "0":"Missing"
     },
     "urban":{
        "1":"Rural (country side)",
        "2":"Suburban",
        "3":"Urban (town, city)",
-       "0":"np.nan"
+       "0":"Missing"
     },
     "gender":{
        "1":"Male",
        "2":"Female",
        "3":"Other",
-       "0":"np.nan"
+       "0":"Missing"
     },
     "engnat":{
        "1":"Native English speaker",
        "2":"Non-native English speaker",
-       "0":"np.nan"
+       "0":"Missing"
     },
     "hand":{
        "1":"Right-handed",
        "2":"Left-handed",
        "3":"Ambidextrous",
-       "0":"np.nan"
+       "0":"Missing"
     },
     "religion":{
        "1":"Agnostic",
@@ -42,7 +42,7 @@
        "10":"Muslim",
        "11":"Sikh",
        "12":"Other",
-       "0":"np.nan"
+       "0":"Missing"
     },
     "orientation":{
        "1":"Heterosexual",
@@ -50,7 +50,7 @@
        "3":"Homosexual",
        "4":"Asexual",
        "5":"Other",
-       "0":"np.nan"
+       "0":"Missing"
     },
     "race":{
        "1":"Asian",
@@ -58,17 +58,17 @@
        "3":"Black",
        "4":"White",
        "5":"Other",
-       "0":"np.nan"
+       "0":"Missing"
     },
     "voted":{
        "1":"Yes",
        "2":"No",
-       "0":"np.nan"
+       "0":"Missing"
     },
     "married":{
        "1":"Never married",
        "2":"Currently married",
        "3":"Previously married",
-       "0":"np.nan"
+       "0":"Missing"
     }
  }
