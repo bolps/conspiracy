@@ -414,3 +414,138 @@ st.subheader('Research question')
 st.write('>**Q1:** *Is the belief in conspiracy toeries influenced by certain socio-demographic groups?*')
 st.write('>**Q2:** *Are there relationships between personality traits and belief in conspiracy theories*')
 st.write('>**Q3:** *Are there personality configurations that influence the belief in conspiracy theories?*')
+
+############## Research question - Demographics  ##############
+
+demo_list = ['DEMO_agegroup','DEMO_familytype','DEMO_education','DEMO_urban','DEMO_gender','DEMO_engnat','DEMO_hand','DEMO_religion','DEMO_orientation','DEMO_race','DEMO_voted','DEMO_married','DEMO_major_cluster']
+kruskallwallis_demo_gcbs_list = []
+for demo in demo_list:
+    result = pg.kruskal(data=gcbs_clean_df, dv='GCBS_Overall', between=demo, detailed=False)
+    if result.loc['Kruskal']['p-unc']<.05:
+        sign = 'Statistically significant result'
+    else:
+        sign = ''
+    kruskallwallis_demo_gcbs_list.append((result.loc['Kruskal']['Source'],'GCBS_Overall',result.loc['Kruskal']['H'],result.loc['Kruskal']['p-unc'],result.loc['Kruskal']['ddof1'],sign))
+kruskallwallis_df = pd.DataFrame(kruskallwallis_demo_gcbs_list, columns = ['Factor', 'Scale', 'H', 'p-value', 'DoF','Note'])
+
+sns.set_theme()
+fig, axes = plt.subplots(4,2,figsize=(16,28))
+
+axes[0,0].set_title('GCBS score by age group')
+sns.swarmplot(ax=axes[0, 0], x="DEMO_agegroup", y="GCBS_Overall", data=gcbs_clean_df, color=".2", size=1)
+box = sns.boxplot(ax=axes[0, 0], x="DEMO_agegroup", y="GCBS_Overall", data=gcbs_clean_df, palette="Set2",  width=0.4)
+box.set_xticklabels(box.get_xticklabels(), rotation=45)
+box.set_xlabel("Age group")
+box.set_ylabel("GCBS score (overall)")
+
+axes[0,1].set_title('GCBS score by education')
+sns.swarmplot(ax=axes[0, 1], x="DEMO_education", y="GCBS_Overall", data=gcbs_clean_df, color=".2", size=1)
+box = sns.boxplot(ax=axes[0, 1], x="DEMO_education", y="GCBS_Overall", data=gcbs_clean_df, palette="Set2",  width=0.4)
+box.set_xticklabels(box.get_xticklabels(), rotation=45)
+box.set_xlabel("Education")
+box.set_ylabel("GCBS score (overall)")
+
+
+axes[1,0].set_title('GCBS score by type of area')
+sns.swarmplot(ax=axes[1, 0], x="DEMO_urban", y="GCBS_Overall", data=gcbs_clean_df, color=".2", size=1)
+box = sns.boxplot(ax=axes[1, 0], x="DEMO_urban", y="GCBS_Overall", data=gcbs_clean_df, palette="Set2",  width=0.4)
+box.set_xticklabels(box.get_xticklabels(), rotation=45)
+box.set_xlabel("Type of area")
+box.set_ylabel("GCBS score (overall)")
+
+axes[1,1].set_title('GCBS score by gender')
+sns.swarmplot(ax=axes[1, 1], x="DEMO_gender", y="GCBS_Overall", data=gcbs_clean_df, color=".2", size=1)
+box = sns.boxplot(ax=axes[1, 1], x="DEMO_gender", y="GCBS_Overall", data=gcbs_clean_df, palette="Set2",  width=0.4)
+box.set_xticklabels(box.get_xticklabels(), rotation=45)
+box.set_xlabel("Gender")
+box.set_ylabel("GCBS score (overall)")
+
+axes[2,0].set_title('GCBS score by religion')
+sns.swarmplot(ax=axes[2, 0], x="DEMO_religion", y="GCBS_Overall", data=gcbs_clean_df, color=".2", size=1)
+box = sns.boxplot(ax=axes[2, 0], x="DEMO_religion", y="GCBS_Overall", data=gcbs_clean_df, palette="Set2",  width=0.4)
+box.set_xticklabels(box.get_xticklabels(), rotation=90)
+box.set_xlabel("Religion")
+box.set_ylabel("GCBS score (overall)")
+
+axes[2,1].set_title('GCBS score by racial identification')
+sns.swarmplot(ax=axes[2, 1], x="DEMO_race", y="GCBS_Overall", data=gcbs_clean_df, color=".2", size=1)
+box = sns.boxplot(ax=axes[2, 1], x="DEMO_race", y="GCBS_Overall", data=gcbs_clean_df, palette="Set2",  width=0.4)
+box.set_xticklabels(box.get_xticklabels(), rotation=90)
+box.set_xlabel("Racial identification")
+box.set_ylabel("GCBS score (overall)")
+
+axes[3,0].set_title('GCBS score by voted')
+sns.swarmplot(ax=axes[3, 0], x="DEMO_voted", y="GCBS_Overall", data=gcbs_clean_df, color=".2", size=1)
+box = sns.boxplot(ax=axes[3, 0], x="DEMO_voted", y="GCBS_Overall", data=gcbs_clean_df, palette="Set2",  width=0.4)
+box.set_xticklabels(box.get_xticklabels(), rotation=0)
+box.set_xlabel("Voted")
+box.set_ylabel("GCBS score (overall)")
+
+axes[3,1].set_title('GCBS score by college major cluster')
+sns.swarmplot(ax=axes[3, 1], x="DEMO_major_cluster", y="GCBS_Overall", data=gcbs_clean_df, color=".2", size=1)
+box = sns.boxplot(ax=axes[3, 1], x="DEMO_major_cluster", y="GCBS_Overall", data=gcbs_clean_df, palette="Set2",  width=0.4)
+box.set_xticklabels(box.get_xticklabels(), rotation=90)
+box.set_xlabel("College major (cluster)")
+box.set_ylabel("GCBS score (overall)")
+
+# set the spacing between subplots
+fig.tight_layout()
+
+demo_sign = ['DEMO_agegroup','DEMO_education','DEMO_urban','DEMO_gender','DEMO_religion','DEMO_race','DEMO_voted','DEMO_major_cluster']
+chi_square_list = []
+for pair in list(itertools.combinations(demo_sign,2)):
+    crosstab, test_results, expected = rp.crosstab(gcbs_clean_df[pair[0]], gcbs_clean_df[pair[1]], test= "chi-square",expected_freqs= True,prop= "cell")
+    
+    chi_square = test_results.iloc[0]['results']
+    p_value = test_results.iloc[1]['results']
+    cramer_v = test_results.iloc[2]['results']
+    
+    if cramer_v > .25:
+        assoc = 'Very strong'
+    elif cramer_v > .15:
+        assoc = 'Strong'
+    elif cramer_v > .10:
+        assoc = 'Moderate'
+    elif cramer_v > .05:
+        assoc = 'Weak'
+    else:
+        assoc = 'No or very weak'
+        
+    if p_value < .05:
+        sign = 'Statistically significant result'
+    else:
+        sign = ''
+        assoc = ''
+    
+    chi_square_list.append(('{} - {}'.format(pair[0],pair[1]),chi_square, p_value, cramer_v, sign, assoc))
+
+chi_square_df = pd.DataFrame(chi_square_list, columns = ['Variables', 'χ2', 'p-value', "Cramer's V", 'Note','Degree of association'])
+
+############## Web App - Conspiracy theories and demographics ##############
+
+st.subheader('Conspiracy theories and demographics')
+st.write('To test whether belonging to certain socio-demographic groups influences the level of conspiracy, it is necessary to find a non-parametric test that can capture the difference as parametric tests (such as ANOVA) do not perform properly (type I error) with groups having both unequal sample sizes and variances (Rusticus & Lovato, 2014).')
+st.write('I chose the Kruskal-Wallis H-test (a non-parametric version of ANOVA) which tests the null hypothesis that the population median of all of the groups are equal. The test works on 2 or more independent samples, which may have different sizes. It is important to realize that the Kruskal-Wallis H test is an omnibus test statistic and cannot tell you which specific groups of your independent variable are statistically significantly different from each other; it only tells you that at least two groups were different.')
+if st.checkbox('Show reference on parametric tests limitations'):
+    st.write('>Rusticus, S. & Lovato, C. (2014). *Impact of Sample Size and variability on the Power and Type I Error Rates of Equivalence Tests: A Simulation Study.* Practical Assessment, Research & Evaluation. Vol. 19, No. 11. August.')
+st.write(kruskallwallis_df)
+st.write("**Let's visualize the differences!**")
+st.write('Statistically significant results have been further investigated graphically using a combination of swarmplots and boxplots.')
+st.write('*Swarmplots help to visualize the underlying distribution and the number of data points.*')
+st.write(fig)
+st.write('**Age**')
+st.write(">A number of relevant considerations emerge from observation of the plots. The first involves the age of the participants: individuals in the 'Middle adulthood' (45-65) present higher scores than the other groups. Older participants, on the other hand, present the lowest scores but their subsample (n=17) is not large enough for a solid statement.")
+st.write('**Education**')
+st.write(">A very interesting trend emerges from education: those who have at least a university degree present lower scores in the measure of general belief in conspiracy theories suggesting a positive effect of education. Moreover, among those who have at least a university degree, the degree macro-cluster appears to affect the level of conspiracy theories: individuals who have degrees in Arts and Business believe more in conspiracy theories than the others, while those who have attended a Science and Math degree have the lowest scores in the scale. This pattern suggests a protective role of science disciplines.")
+st.write('**Religion and racial identification**')
+st.write(">Another noteworthy finding involves the religious dimension: religious individuals believe more in conspiracy theories than both agnostics and atheists (atheists also have lower scores than agnostics though). This difference sets the stage for future research to investigate how the spiritual dimension may relate to greater adherence to conspiracy theories. Another aspect worthy of further investigation is racial identification, as individuals who selected the 'other' group recorded higher scores than other groups. However, it would be good to investigate these minorities further with a different, more balanced sample.")
+st.write('**Gender**')
+st.write(">Difference between genders was also found: men tend to believe conspiracy theories less than women.")
+st.write('**Other**')
+st.write('>Slight differences were also found in both the type of area in which the respondent grew up (those who were born in cities seem to believe slightly more in conspiracy theories) and whether they voted in the last election (those who did not vote have higher scores than those who did). The relationship between voting and belief in conpiracy theories suggests a link with trust in institutions.')
+
+st.write('For the sake of completeness, a table on the associations between socio-demographic variables (pairwise chi-squared test) has been added.')
+if st.checkbox('Show the table'):
+    st.write(chi_square_df)
+
+############## Research question - Demographics  ##############
