@@ -317,6 +317,8 @@ def barChart(df, col, title='', subtitle=''):
 st.subheader('Partecipants')
 st.image('https://designmuseumfoundation.org/wp-content/uploads/2021/01/DIA_illustration_cropped.jpg')
 
+st.write("The mean age of participants is 28.45 years (SD = 13.88) and the most represented age group is emerging adulthood (41.32%). The sample is almost balanced in terms of gender, with 43.58% female and 51.55% male (4.87% selected 'other'). Most respondents had a high school diploma (44.59%) and 39.05% had a college degree (bachelor's or master's). Of those with an undergraduate degree, 43.88% studied a discipline in the Literature, Language, and Social Science field, 34.39% in the Science and Math field while the remaining are split in similar proportions between Business, Arts and Environment. \n\n Nearly three-quarters of respondents (72.20%) are native English speakers and majority of respondents grew up in a medium-sized family (with 2-3 children) (67.86%). 48.18% of participants grew up in a suburban area, 34.55% in an urban area, and the remaining 19.27% in a rural area. \n\n Most respondents identified themselves as heterosexual (67.7%), but minorities were also well represented (16.9% bisexual, 5.44% homosexual, 5.01% asexual, 4.93% other). 79.5% of the sample identified themselves as white, 6.45% as Asian, and 14.14% as belonging to other ethnic groups. Speaking of religion, the sample is divided into two blocks of similar size: atheists and agnostics (who together account for 55.43% of the total) and religious (26.93% Christian and 17.61% belonging to other religions).")
+
 col_tile_dict = {
     'Age groups':'DEMO_agegroup',
     'Education':'DEMO_education',
