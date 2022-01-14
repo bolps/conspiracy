@@ -407,3 +407,10 @@ if st.checkbox('Show normality tests'):
     st.write(normality_tests_df)
 
 st.write('Statistical tests confirm that none of the distribution under examination presents the characteristics of a normal distribution, suggesting the use of non-parametric tests for further analysis.')
+
+############## Web App - Research question ##############
+
+st.subheader('Research question')
+st.write('>**Q1:** *Is the belief in conspiracy toeries influenced by certain socio-demographic groups?*')
+st.write('>**Q2:** *Are there relationships between personality traits and belief in conspiracy theories*')
+st.write('>**Q3:** *Are there personality configurations that influence the belief in conspiracy theories?*')
