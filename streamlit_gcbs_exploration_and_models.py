@@ -6,6 +6,7 @@ import io
 import streamlit as st
 # data manipulation
 import itertools
+import random
 import pandas as pd
 import numpy as np
 import json
@@ -38,12 +39,12 @@ st.sidebar.markdown("[Dataset](#dataset)", unsafe_allow_html=True)
 st.sidebar.markdown("[Data preprocessing](#data-preprocessing)", unsafe_allow_html=True)
 st.sidebar.markdown("[Data cleaning](#data-cleaning)", unsafe_allow_html=True)
 st.sidebar.markdown("[Data quality](#data-quality)", unsafe_allow_html=True)
-st.sidebar.markdown("[Partecipants](#Partecipants)", unsafe_allow_html=True)
-st.sidebar.markdown("[Scales](#Scales)", unsafe_allow_html=True)
-st.sidebar.markdown("[Research question](#Research-question)", unsafe_allow_html=True)
-st.sidebar.markdown("[Conspiracy theories and demographics](#Conspiracy-theories-and-demographics)", unsafe_allow_html=True)
-st.sidebar.markdown("[Conspiracy theories and personality traits](#Conspiracy-theories-and-personality-traits)", unsafe_allow_html=True)
-st.sidebar.markdown("[Conspiracy theories and personality configurations](#Conspiracy-theories-and-personality-configurations)", unsafe_allow_html=True)
+st.sidebar.markdown("[Partecipants](#partecipants)", unsafe_allow_html=True)
+st.sidebar.markdown("[Scales](#scales)", unsafe_allow_html=True)
+st.sidebar.markdown("[Research question](#research-question)", unsafe_allow_html=True)
+st.sidebar.markdown("[Conspiracy theories and demographics](#conspiracy-theories-and-demographics)", unsafe_allow_html=True)
+st.sidebar.markdown("[Conspiracy theories and personality traits](#conspiracy-theories-and-personality-traits)", unsafe_allow_html=True)
+st.sidebar.markdown("[Conspiracy theories and personality configurations](#conspiracy-theories-and-personality-configurations)", unsafe_allow_html=True)
 
 
 st.header('Who are the Conspiracy Theorists?')
@@ -294,3 +295,47 @@ if st.checkbox('Show reference on data quality'):
     st.write('>Eisinga, Rob; Grotenhuis, Manfred te; Pelzer, Ben (2013). *The reliability of a two-item scale: Pearson, Cronbach, or Spearman-Brown?.* International Journal of Public Health, 58(4), 637–642. doi:10.1007/s00038-012-0416-3')
     st.write('>Nunnally, J.C. and Bernstein, I.H. (1994) *The Assessment of Reliability.* Psychometric Theory, 3, 248-292.')
 
+############## Data Exploration ##############
+
+# function for pie charts
+def pieChart(df, col, title='', subtitle=''):
+    total_responses = sum(df[col].value_counts()[df[col].value_counts()> 0])
+    count_df = df[col].value_counts()[df[col].value_counts()> 0].rename_axis(col).reset_index(name='counts')
+    fig = count_df.iplot(kind='pie', labels=col, values='counts', hoverinfo="label+percent+name",hole=0.3, theme='white', asFigure=True)
+    fig.update_traces(texttemplate='%{percent:.2%}')
+    fig.update_layout(title_text='{} (N={})'.format(title,total_responses), title_x=0.1, legend=dict(orientation="h", xanchor = "center",  x = 0.5))
+    return fig
+# function for barcharts
+def barChart(df, col, title='', subtitle=''):
+    random_color = tuple(random.randint(1,255) for _ in range(3))
+    total_responses = sum(df[col].value_counts())
+    fig = df[col].value_counts().sort_index(ascending=True).iplot(kind='bar', title='{} (N={})'.format(title,total_responses), color='rgb{}'.format(str(random_color)), theme='white', asFigure=True)
+    return fig
+
+############## Web App - Partecipants ##############
+
+st.subheader('Partecipants')
+st.image('https://designmuseumfoundation.org/wp-content/uploads/2021/01/DIA_illustration_cropped.jpg')
+
+col_tile_dict = {
+    'Age groups':'DEMO_agegroup',
+    'Education':'DEMO_education',
+    'Family type':'DEMO_familytype',
+    'Area':'DEMO_urban',
+    'Gender':'DEMO_gender',
+    'Language':'DEMO_engnat',
+    'Hand preference':'DEMO_hand',
+    'Religion':'DEMO_religion',
+    'Sexual orientation':'DEMO_orientation',
+    'Racial identification':'DEMO_race',
+    'Voted':'DEMO_voted',
+    'Marital status':'DEMO_married',
+    'College Major':'DEMO_major_cluster'
+}
+
+options = st.multiselect('Select which charts you want to visualize', ['Age groups', 'Education', 'Family type','Area','Gender','Language','Hand preference','Religion','Sexual orientation','Racial identification','Voted','Marital status','College Major'])
+for variable in options:
+    if variable in ['Age groups','Education','Family type']:
+        st.write(barChart(gcbs_clean_df, col=col_tile_dict[variable], title=variable))
+    else:
+        st.write(pieChart(gcbs_clean_df, col=col_tile_dict[variable], title=variable))
