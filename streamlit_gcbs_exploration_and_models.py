@@ -279,3 +279,18 @@ gcbs_clean_df = gcbs_clean_df.drop(list(gcbs_clean_df.filter(like='_REV',axis=1)
 # building a table with cronbach alpha info
 cronbach_df  = pd.DataFrame(cronbach_dict_list)
 
+############## Web App - Data Quality ##############
+
+st.subheader('Data quality')
+st.image('https://www.grunge.com/img/gallery/the-strange-history-of-phrenology/intro-1596120421.jpg')
+st.write('When it comes to psychological data, data quality is a serious business as the quality of the output strongly depends on the ability of the scales to actually measure the psychologial dimension which is intented to be measured. So I computed Cronbach’s alpha for both *GCBS (Conspiracist Belief)* and *TIPI (Personality).*')
+st.write('**Cronbach’s alpha** is a measure used to assess the reliability, or internal consistency, of a set of scale or test items. It is computed by correlating the score for each scale item with the total score for each observation (usually individual survey respondents or test takers), and then comparing that to the variance for all individual item scores:')
+st.latex(r'''{\alpha} =  (\frac{k}{k-1}) (1- \sum \limits _{i=1} ^{k} \frac{{\sigma}_{y_{i}}^2}{{\sigma}_{x}^2})''')
+st.write('where: \n  * ${k}$ refers to the number of scale items \n * ${\sigma}_{y_{i}}^2$ refers to the variance associated with item ${i}$ \n * ${\sigma}_{x}^2$ refers to the variance associated with the observed total scores')
+st.write('**Warning:** As pointed out by Eisinga and colleagues (2013), when items=2 (as in *TIPI* subscales) coefficient alpha almost always underestimates true reliability.')
+st.write(cronbach_df)
+st.write('Cronbach’s alphas show excellent internal consistency for the *Generic Conspiracist Beliefs Scale (GCBS)*, while results from the personality assessment seems questionable. With just 10 items *Personality Scale (TIPI)* struggle to capture internal consistency for subscales. However composite reliability alpha>=0.6 is considered satisfactory for exploratory research (Nunally & Bernstein, 1994 ).')
+if st.checkbox('Show reference on data quality'):
+    st.write('>Eisinga, Rob; Grotenhuis, Manfred te; Pelzer, Ben (2013). *The reliability of a two-item scale: Pearson, Cronbach, or Spearman-Brown?.* International Journal of Public Health, 58(4), 637–642. doi:10.1007/s00038-012-0416-3')
+    st.write('>Nunnally, J.C. and Bernstein, I.H. (1994) *The Assessment of Reliability.* Psychometric Theory, 3, 248-292.')
+
