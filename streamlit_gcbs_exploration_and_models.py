@@ -548,4 +548,39 @@ st.write('For the sake of completeness, a table on the associations between soci
 if st.checkbox('Show the table'):
     st.write(chi_square_df)
 
-############## Research question - Demographics  ##############
+############## Research question - Personality traits  ##############
+
+correlation_list = []
+for personality_dimension in list(gcbs_clean_df.filter(like='TIPI_',axis=1).columns):
+        r_spear, p_spear = spearmanr(gcbs_clean_df[personality_dimension],gcbs_clean_df['GCBS_Overall'])
+        
+        if abs(r_spear) > .9:
+            assoc = 'Very high correlation'
+        elif abs(r_spear) > .7:
+            assoc = 'High correlation'
+        elif abs(r_spear) > .5:
+            assoc = 'Moderate correlation'
+        elif abs(r_spear) > .3:
+            assoc = 'Low correlation'
+        else:
+            assoc = 'Negligible correlation'
+
+        if p_spear < .05:
+            sign = 'Statistically significant result'
+        else:
+            sign = ''
+            assoc = ''
+        
+        correlation_list.append(('{} - GCBS_Overall'.format(personality_dimension), r_spear, p_spear, sign, assoc))
+
+personality_conspiracy_corr_df = pd.DataFrame(correlation_list, columns=['variables', 'r_spearman', 'p_value','note','interpretation'])
+
+############## Web App - Conspiracy theories and personality traits ##############
+
+st.subheader('Conspiracy theories and personality traits')
+st.write('To investigate the relationship between personality traits and beliefs in conspiracy theories, it is not possible to use the Pearson correlation coefficient because the distributions of the scales do not satisfy the assumptions.')
+st.write('Instead, one can use the Spearman rank-order correlation coefficient which is a nonparametric measure of the monotonicity of the relationship between two datasets. Unlike the Pearson correlation, the Spearman correlation does not assume that both datasets are normally distributed. Like other correlation coefficients, this one varies between -1 and +1 with 0 implying no correlation. Correlations of -1 or +1 imply an exact monotonic relationship.')
+st.write(personality_conspiracy_corr_df)
+st.write('Although there are statistically significant results, the size of the correlation coefficient suggets no or negligible relationship between personality traits and and the belief in conspiracy theories.')
+if st.checkbox('Show reference on on correlation coefficient interpretation'):
+    st.write('>Hinkle, D. E., Wiersma, W., & Jurs, S. G. (2003). *Applied statistics for the behavioral sciences (Vol. 663).* Houghton Mifflin College Division')
