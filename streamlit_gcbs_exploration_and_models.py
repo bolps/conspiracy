@@ -295,7 +295,7 @@ if st.checkbox('Show reference on data quality'):
     st.write('>Eisinga, Rob; Grotenhuis, Manfred te; Pelzer, Ben (2013). *The reliability of a two-item scale: Pearson, Cronbach, or Spearman-Brown?.* International Journal of Public Health, 58(4), 637–642. doi:10.1007/s00038-012-0416-3')
     st.write('>Nunnally, J.C. and Bernstein, I.H. (1994) *The Assessment of Reliability.* Psychometric Theory, 3, 248-292.')
 
-############## Data Exploration ##############
+############## Data Exploration - Sample ##############
 
 # function for pie charts
 def pieChart(df, col, title='', subtitle=''):
@@ -311,6 +311,8 @@ def barChart(df, col, title='', subtitle=''):
     total_responses = sum(df[col].value_counts())
     fig = df[col].value_counts().sort_index(ascending=True).iplot(kind='bar', title='{} (N={})'.format(title,total_responses), color='rgb{}'.format(str(random_color)), theme='white', asFigure=True)
     return fig
+
+
 
 ############## Web App - Partecipants ##############
 
@@ -341,3 +343,67 @@ for variable in options:
         st.write(barChart(gcbs_clean_df, col=col_tile_dict[variable], title=variable))
     else:
         st.write(pieChart(gcbs_clean_df, col=col_tile_dict[variable], title=variable))
+
+############## Data Exploration - Scales ##############
+
+scales_list = ['GCBS_Overall','TIPI_Extraversion','TIPI_Agreeableness','TIPI_Conscientiousness','TIPI_Emotional_Stability','TIPI_Openness']
+
+# defining a function for normality tests 
+def testNormality(x):
+    #Shapiro-Wilk
+    w, p_w = shapiro(x)
+    #Jarque-Bera
+    jb, p_jb = jarque_bera(x)
+    #D’Agostino-Pearson
+    k2, p_k2 = normaltest(x)
+    
+    #Additional info
+    #Skewness
+    s = skew(x)
+    #Kurtosis
+    k = kurtosis(x)
+    
+    return {
+        'Shapiro (w)':w,
+        'p-value (Shapiro)':p_w,
+        'Jarque-Bera (jb)':jb,
+        'p-value (Jarque-Bera)':p_jb,
+        'D’Agostino-Pearson (k2)':k2,
+        'p-value (D’Agostino-Pearson)':p_k2,
+        'skewness':s,
+        'kurtosis':k
+    }
+
+normality_check_list = []
+for column in scales_list:
+    distribution_info = testNormality(gcbs_clean_df[column])
+    normality_check_list.append(distribution_info)
+normality_tests_df = pd.DataFrame(normality_check_list)
+normality_tests_df.index = scales_list
+
+############## Web App - Scales ##############
+
+st.subheader('Scales')
+st.write('Descriptive statistics for *GCBS (Generic Conspiracist Beliefs Scale)* and *TIPI (Ten Item Personality Inventory)* scales has been reported below.')
+st.write(gcbs_clean_df[scales_list].describe().T)
+st.write('For each distribution, a plot has been generated and finally normality test has been applied to data.')
+
+# decriptive statistics for scales
+scales_list = ['GCBS_Overall','TIPI_Extraversion','TIPI_Agreeableness','TIPI_Conscientiousness','TIPI_Emotional_Stability','TIPI_Openness']
+round(gcbs_clean_df[scales_list].describe(),2) ###!!!! remeber to print it in the web app
+# plotting GCBS
+st.write('**Generic Conspiracist Beliefs Scale**')
+st.write(gcbs_clean_df['GCBS_Overall'].iplot(kind='hist', opacity=0.75, color='rgb(12, 128, 128)', title='Generic Conspiracist Beliefs Scale Distribution', yTitle='Count', xTitle='GCBS score (overall)', bargap = 0, theme='white', asFigure=True))
+# Plotting Personality (TIPI) dimensions
+st.write('**Personality dimensions (TIPI subscales)**')
+st.write(gcbs_clean_df['TIPI_Extraversion'].iplot(kind='hist', opacity=0.75, color='rgb(93, 173, 226)', title='Personality - Extraversion Distribution', yTitle='Count', xTitle='TIPI score (extraversion)', bargap = 0, theme='white', asFigure=True))
+st.write(gcbs_clean_df['TIPI_Agreeableness'].iplot(kind='hist', opacity=0.75, color='rgb(72, 201, 176)', title='Personality - Agreeableness Distribution', yTitle='Count', xTitle='TIPI score (agreeableness)', bargap = 0, theme='white', asFigure=True))
+st.write(gcbs_clean_df['TIPI_Conscientiousness'].iplot(kind='hist', opacity=0.75, color='rgb(175, 122, 197)', title='Personality - Conscientiousness Distribution', yTitle='Count', xTitle='TIPI score (conscientiousness)', bargap = 0, theme='white', asFigure=True))
+st.write(gcbs_clean_df['TIPI_Emotional_Stability'].iplot(kind='hist', opacity=0.75, color='rgb(247, 220, 111)', title='Personality - Emotional Stability Distribution', yTitle='Count', xTitle='TIPI score (emotional stability)', bargap = 0, theme='white', asFigure=True))
+st.write(gcbs_clean_df['TIPI_Openness'].iplot(kind='hist', opacity=0.75, color='rgb(236, 112, 99)', title='Personality - Openness Distribution', yTitle='Count', xTitle='TIPI score (openness)', bargap = 0, theme='white', asFigure=True))
+
+if st.checkbox('Show normality tests'):
+    st.write('**Normality test results:**')
+    st.write(normality_tests_df)
+
+st.write('Statistical tests confirm that none of the distribution under examination presents the characteristics of a normal distribution, suggesting the use of non-parametric tests for further analysis.')
