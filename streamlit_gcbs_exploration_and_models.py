@@ -72,7 +72,7 @@ if st.checkbox('Show more info about the scales'):
     st.image('https://us.v-cdn.net/6030293/uploads/editor/mj/z80t41fkdg1m.png')
 
 st.subheader('Data preprocessing')
-st.image('https://miro.medium.com/max/4096/1*PnbRC7LG_CutKvrOHpW7kw.png')
+st.image('https://miro.medium.com/max/4096/1*PnbRC7LG_CutKvrOHpW7kw.png', caption='Illustration by Olga Davydova - Data Monsters')
 st.write('Before starting the whole process of data cleaning and analysis, raw data has been be trasformed in the most convenient way for the upcoming steps.')
 st.write('In particular, the following steps has been applied:')
 st.write("* dropping useless columns \n * assigning the correct data types \n * labelling categorical data according to the codebook \n * grouping text fields values \n * identifying missing values (according to the codebook) \n * dropping incomplete responses (GCBS and TIPI) \n * computing GCBS and TIPI scores (according to literature). *This step is crucial as it allows us to transform raw data (indicators) into a value (score) that reflects an individual's position on an underlying construct (such as personality or beliefs)* \n * recoding age in groups (according to literature). *This step is important as people in the same group share psychological characteristcs, beliefs and behaviors.* \n * recoding family size in groups. *This step is important as linving in small (i.e. only child) or big families has long-lasting effects on paople's behvaiour and psychological outcomes.* \n * computing variables for survey cleaning (straightliners, speed responses, outliers, validity check errors) \n * renaming columns (with prefixes for better organization)")
@@ -199,7 +199,7 @@ gcbs_clean_df = gcbs_clean_df.drop(['SURV_ValidityCheck_Errors','SURV_CheckStrai
 ############## Web App - Data Cleaning ##############
 
 st.subheader('Data cleaning')
-st.image('https://blog.insycle.com/hubfs/The%20Complete%20Guide%20to%20Customer%20Data%20Cleaning.png')
+st.image('https://www.sciencenews.org/wp-content/uploads/2018/07/072118_alz_feat.jpg', caption='Illustration by Michael Morgenstern - ScienceNews')
 st.write('In order to remove noise and invalid responses, data related to participants who gave quick answers, failed validity checks, or provided straightline responses was removed.')
 st.write('The cleaning process removed almost half the individuals (1302 out of 2495) leaving 1193 valid records.')
 
@@ -283,14 +283,14 @@ cronbach_df  = pd.DataFrame(cronbach_dict_list)
 ############## Web App - Data Quality ##############
 
 st.subheader('Data quality')
-st.image('https://www.grunge.com/img/gallery/the-strange-history-of-phrenology/intro-1596120421.jpg')
+st.image('https://www.grunge.com/img/gallery/the-strange-history-of-phrenology/intro-1596120421.jpg', caption='Illustration by Photos.com - Getty Images')
 st.write('When it comes to psychological data, data quality is a serious business as the quality of the output strongly depends on the ability of the scales to actually measure the psychologial dimension which is intented to be measured. So I computed Cronbach’s alpha for both *GCBS (Conspiracist Belief)* and *TIPI (Personality).*')
 st.write('**Cronbach’s alpha** is a measure used to assess the reliability, or internal consistency, of a set of scale or test items. It is computed by correlating the score for each scale item with the total score for each observation (usually individual survey respondents or test takers), and then comparing that to the variance for all individual item scores:')
 st.latex(r'''{\alpha} =  (\frac{k}{k-1}) (1- \sum \limits _{i=1} ^{k} \frac{{\sigma}_{y_{i}}^2}{{\sigma}_{x}^2})''')
 st.write('where: \n  * ${k}$ refers to the number of scale items \n * ${\sigma}_{y_{i}}^2$ refers to the variance associated with item ${i}$ \n * ${\sigma}_{x}^2$ refers to the variance associated with the observed total scores')
 st.write('**Warning:** As pointed out by Eisinga and colleagues (2013), when items=2 (as in *TIPI* subscales) coefficient alpha almost always underestimates true reliability.')
 st.write(cronbach_df)
-st.write('Cronbach’s alphas show excellent internal consistency for the *Generic Conspiracist Beliefs Scale (GCBS)*, while results from the personality assessment seems questionable. With just 10 items *Personality Scale (TIPI)* struggle to capture internal consistency for subscales. However composite reliability alpha>=0.6 is considered satisfactory for exploratory research (Nunally & Bernstein, 1994 ).')
+st.write('Cronbach’s alphas show excellent internal consistency for the *Generic Conspiracist Beliefs Scale (GCBS)*, while results from the personality assessment seems questionable. With just 10 items *Personality Scale (TIPI)* struggle to capture personality, especially some traits. However composite reliability alpha>=0.6 is considered satisfactory for exploratory research (Nunally & Bernstein, 1994 ).')
 if st.checkbox('Show reference on data quality'):
     st.write('>Eisinga, Rob; Grotenhuis, Manfred te; Pelzer, Ben (2013). *The reliability of a two-item scale: Pearson, Cronbach, or Spearman-Brown?.* International Journal of Public Health, 58(4), 637–642. doi:10.1007/s00038-012-0416-3')
     st.write('>Nunnally, J.C. and Bernstein, I.H. (1994) *The Assessment of Reliability.* Psychometric Theory, 3, 248-292.')
@@ -317,7 +317,7 @@ def barChart(df, col, title='', subtitle=''):
 ############## Web App - Partecipants ##############
 
 st.subheader('Partecipants')
-st.image('https://designmuseumfoundation.org/wp-content/uploads/2021/01/DIA_illustration_cropped.jpg')
+st.image('https://designmuseumfoundation.org/wp-content/uploads/2021/01/DIA_illustration_cropped.jpg', caption='Illustration by Shutterstock')
 
 st.write("The mean age of participants is 28.45 years (SD = 13.88) and the most represented age group is emerging adulthood (41.32%). The sample is almost balanced in terms of gender, with 43.58% female and 51.55% male (4.87% selected 'other'). Most respondents had a high school diploma (44.59%) and 39.05% had a college degree (bachelor's or master's). Of those with an undergraduate degree, 43.88% studied a discipline in the Literature, Language, and Social Science field, 34.39% in the Science and Math field while the remaining are split in similar proportions between Business, Arts and Environment. \n\n Nearly three-quarters of respondents (72.20%) are native English speakers and majority of respondents grew up in a medium-sized family (with 2-3 children) (67.86%). 48.18% of participants grew up in a suburban area, 34.55% in an urban area, and the remaining 19.27% in a rural area. \n\n Most respondents identified themselves as heterosexual (67.7%), but minorities were also well represented (16.9% bisexual, 5.44% homosexual, 5.01% asexual, 4.93% other). 79.5% of the sample identified themselves as white, 6.45% as Asian, and 14.14% as belonging to other ethnic groups. Speaking of religion, the sample is divided into two blocks of similar size: atheists and agnostics (who together account for 55.43% of the total) and religious (26.93% Christian and 17.61% belonging to other religions).")
 
@@ -524,6 +524,7 @@ chi_square_df = pd.DataFrame(chi_square_list, columns = ['Variables', 'χ2', 'p-
 ############## Web App - Conspiracy theories and demographics ##############
 
 st.subheader('Conspiracy theories and demographics')
+st.image('https://www.economist.com/sites/default/files/images/print-edition/20210522_LDD001_0.jpg', caption='Illustration by Diana Ejaita - The Economist')
 st.write('To test whether belonging to certain socio-demographic groups influences the level of conspiracy, it is necessary to find a non-parametric test that can capture the difference as parametric tests (such as ANOVA) do not perform properly (type I error) with groups having both unequal sample sizes and variances (Rusticus & Lovato, 2014).')
 st.write('I chose the Kruskal-Wallis H-test (a non-parametric version of ANOVA) which tests the null hypothesis that the population median of all of the groups are equal. The test works on 2 or more independent samples, which may have different sizes. It is important to realize that the Kruskal-Wallis H test is an omnibus test statistic and cannot tell you which specific groups of your independent variable are statistically significantly different from each other; it only tells you that at least two groups were different.')
 if st.checkbox('Show reference on parametric tests limitations'):
@@ -578,6 +579,7 @@ personality_conspiracy_corr_df = pd.DataFrame(correlation_list, columns=['variab
 ############## Web App - Conspiracy theories and personality traits ##############
 
 st.subheader('Conspiracy theories and personality traits')
+st.image('https://cdni.rbth.com/rbthmedia/images/2020.07/article/5f08761215e9f975713cbe75.jpg', caption='Illustration by Irina Baranova - Russia Beyond')
 st.write('To investigate the relationship between personality traits and beliefs in conspiracy theories, it is not possible to use the Pearson correlation coefficient because the distributions of the scales do not satisfy the assumptions.')
 st.write('Instead, one can use the Spearman rank-order correlation coefficient which is a nonparametric measure of the monotonicity of the relationship between two datasets. Unlike the Pearson correlation, the Spearman correlation does not assume that both datasets are normally distributed. Like other correlation coefficients, this one varies between -1 and +1 with 0 implying no correlation. Correlations of -1 or +1 imply an exact monotonic relationship.')
 st.write(personality_conspiracy_corr_df)
@@ -592,7 +594,6 @@ scaler = load('tipi_scaler.joblib')
 model = load('tipi_kmeans_model.joblib')
 
 personality_df =  gcbs_clean_df[list(gcbs_clean_df.filter(like='TIPI_',axis=1).columns)]
-personality_df
 # applying the scaler to the dataset
 scaled_array = scaler.transform(personality_df)
 scaled_dataframe = pd.DataFrame(scaled_array, columns = personality_df.columns )
@@ -607,6 +608,7 @@ kruskal_result = pg.kruskal(data=gcbs_clean_df, dv='GCBS_Overall', between='TIPI
 ############## Web App - Conspiracy theories and personality configurations ##############
 
 st.subheader('Conspiracy theories and personality configurations')
+st.image('https://chronicle.brightspotcdn.com/dims4/default/ad93627/2147483647/strip/true/crop/1440x847+0+0/resize/840x494!/quality/90/?url=http%3A%2F%2Fchronicle-brightspot.s3.amazonaws.com%2F92%2F33%2Fc9e97c124a49978f03b9140a5b7a%2Fchronicle-conspiracy-miller-lincoln-online.jpg', caption='Illustration by Chronicle.com')
 st.write('Since personality could be treated both as an entity consisting of a number of independent traits and a gestalt (in which the components of the system interact to form a structure that is greater than the components taken by themselves) a further approach has been carried on. The Gestalt approach involves the identification of personality clusters, i.e. configurations that together produce specific patterns of thinking and interacting with the world.')
 st.write('**Methodological notes**')
 st.write('>Given the confusing results emerging from literature, it is necessary to use an unsupervised approach to identify the personality configurations. In order to increase the scientific rigor of the methodology, many personality profiles were collected from other studies available on openpsychometrics that used the same scale (TIPI). Noise was removed from the dataset in using the same precedure as previously done and scale scores calculated according to literature. Noise was removed from the dataset in using the same precedure as previously done and scale scores calculated according to the literature. The obtained dataset (236,472 personality profiles) was used to train the model. Finally, the model was applied on data from this study for identiying personality cluster for each partecipant.')
@@ -620,6 +622,9 @@ st.write('There are no statistically significant differences in the GCBS scores 
 ############## Web App - Conclusion ##############
 
 st.subheader('Conclusion')
+st.image('https://hbr.org/resources/images/article_assets/2020/07/Jul20_30_FraziskaBarczyk-1024x576.jpg', caption='Illustration by Franziska Barczyk - Harvard Business Review')
+st.write('**Conspiracy theories and demographics**')
 st.write('Belief in conspiracy theories turns out to be influenced mainly by socio-demographic factors, highlighting a decisive role of groups in the way humans interpret the world around them. Education, as shown in previous studies, plays a protective role in general, but even more for stem degrees (which promote rational thinking). The religious dimension, as other researches have already identified, is another important element contributing to the adoption of conspirational thinking.')
-st.write("The study revealed a difference between genders not found in the literature (and so needs to be confirmed by other research): men tend to believe in conspiracy theories less than women. Another aspect worthy of further investigation is racial identification, as individuals who selected the 'other' group believe in conspiracy theories more than other groups. However, it would be better to investigate these minorities with a different, more balanced and deatiled sample. Finally, differences between individuals who voted voted in the last election and those who did not suggests a link between conspirational thinking and trust in the political institutions.")
+st.write("The study revealed a difference between genders not found in the literature (and so needs to be confirmed by other research): men tend to believe in conspiracy theories less than women. Another aspect worthy of further investigation is racial identification, as individuals belonging to minorities believe in conspiracy theories more than other groups. However, it would be better to investigate these minorities with a different, more balanced and deatiled sample. Finally, differences between individuals who voted voted in the last election and those who did not suggests a link between conspirational thinking and trust in the political institutions.")
+st.write('**Conspiracy theories and personality**')
 st.write('Personality dimensions, both in terms of individual traits and as a gestalt, do not influence the belief in conspiracy theories supporting the hypothesis that only pathological functioning is capable of affecting it.')
