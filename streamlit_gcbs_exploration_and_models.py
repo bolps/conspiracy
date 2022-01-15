@@ -616,3 +616,10 @@ st.write('**Testing differences**')
 st.write('Kruskal-Wallis test has been applied in order to test if there are differences between personality clusters regarding the belief in conspiracy theories.')
 st.write(kruskal_result)
 st.write('There are no statistically significant differences in the GCBS scores (belief in conspiracy theories) between personality clusters. However, it is important to stress that the analyses carried out on the relationship between conspiracy theory and personality (in particular those involving clusters) should be repeated using a more reliable scale for personality assessment.')
+
+############## Web App - Conclusion ##############
+
+st.subheader('Conclusion')
+st.write('Belief in conspiracy theories turns out to be influenced mainly by socio-demographic factors, highlighting a decisive role of groups in the way humans interpret the world around them. Education, as shown in previous studies, plays a protective role in general, but even more for stem degrees (which promote rational thinking). The religious dimension, as other researches have already identified, is another important element contributing to the adoption of conspirational thinking.')
+st.write("The study revealed a difference between genders not found in the literature (and so needs to be confirmed by other research): men tend to believe in conspiracy theories less than women. Another aspect worthy of further investigation is racial identification, as individuals who selected the 'other' group believe in conspiracy theories more than other groups. However, it would be better to investigate these minorities with a different, more balanced and deatiled sample. Finally, differences between individuals who voted voted in the last election and those who did not suggests a link between conspirational thinking and trust in the political institutions.")
+st.write('Personality dimensions, both in terms of individual traits and as a gestalt, do not influence the belief in conspiracy theories supporting the hypothesis that only pathological functioning is capable of affecting it.')
