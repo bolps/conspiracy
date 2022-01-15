@@ -584,3 +584,35 @@ st.write(personality_conspiracy_corr_df)
 st.write('Although there are statistically significant results, the size of the correlation coefficient suggets no or negligible relationship between personality traits and and the belief in conspiracy theories.')
 if st.checkbox('Show reference on on correlation coefficient interpretation'):
     st.write('>Hinkle, D. E., Wiersma, W., & Jurs, S. G. (2003). *Applied statistics for the behavioral sciences (Vol. 663).* Houghton Mifflin College Division')
+
+############## Research question - Personality configurations  ##############
+
+# loading scaler/model
+scaler = load('tipi_scaler.joblib') 
+model = load('tipi_kmeans_model.joblib')
+
+personality_df =  gcbs_clean_df[list(gcbs_clean_df.filter(like='TIPI_',axis=1).columns)]
+personality_df
+# applying the scaler to the dataset
+scaled_array = scaler.transform(personality_df)
+scaled_dataframe = pd.DataFrame(scaled_array, columns = personality_df.columns )
+scaled_dataframe.head(5)
+# cluster prediction
+predicted_clusters = model.predict(scaled_dataframe)
+gcbs_clean_df['TIPI_Personality_Cluster'] = predicted_clusters
+
+personality_cluster_preview = gcbs_clean_df[['GCBS_Overall','TIPI_Extraversion','TIPI_Agreeableness','TIPI_Conscientiousness','TIPI_Emotional_Stability','TIPI_Openness','TIPI_Personality_Cluster']].head(10)
+kruskal_result = pg.kruskal(data=gcbs_clean_df, dv='GCBS_Overall', between='TIPI_Personality_Cluster', detailed=False) 
+
+############## Web App - Conspiracy theories and personality configurations ##############
+
+st.subheader('Conspiracy theories and personality configurations')
+st.write('Since personality could be treated both as an entity consisting of a number of independent traits and a gestalt (in which the components of the system interact to form a structure that is greater than the components taken by themselves) a further approach has been carried on. The Gestalt approach involves the identification of personality clusters, i.e. configurations that together produce specific patterns of thinking and interacting with the world.')
+st.write('**Methodological notes**')
+st.write('>Given the confusing results emerging from literature, it is necessary to use an unsupervised approach to identify the personality configurations. In order to increase the scientific rigor of the methodology, many personality profiles were collected from other studies available on openpsychometrics that used the same scale (TIPI). Noise was removed from the dataset in using the same precedure as previously done and scale scores calculated according to literature. Noise was removed from the dataset in using the same precedure as previously done and scale scores calculated according to the literature. The obtained dataset (236,472 personality profiles) was used to train the model. Finally, the model was applied on data from this study for identiying personality cluster for each partecipant.')
+st.write('**Clustering preview**')
+st.write(personality_cluster_preview)
+st.write('**Testing differences**')
+st.write('Kruskal-Wallis test has been applied in order to test if there are differences between personality clusters regarding the belief in conspiracy theories.')
+st.write(kruskal_result)
+st.write('There are no statistically significant differences in the GCBS scores (belief in conspiracy theories) between personality clusters. However, it is important to stress that the analyses carried out on the relationship between conspiracy theory and personality (in particular those involving clusters) should be repeated using a more reliable scale for personality assessment.')
