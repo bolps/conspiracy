@@ -33,18 +33,25 @@ pd.set_option('display.max_rows', 100)
 pd.set_option('display.max_colwidth', 100)
 
 ############## Web App Intro ##############
-
-st.sidebar.markdown("[Background](#background)", unsafe_allow_html=True)
-st.sidebar.markdown("[Dataset](#dataset)", unsafe_allow_html=True)
-st.sidebar.markdown("[Data preprocessing](#data-preprocessing)", unsafe_allow_html=True)
-st.sidebar.markdown("[Data cleaning](#data-cleaning)", unsafe_allow_html=True)
-st.sidebar.markdown("[Data quality](#data-quality)", unsafe_allow_html=True)
-st.sidebar.markdown("[Partecipants](#partecipants)", unsafe_allow_html=True)
-st.sidebar.markdown("[Scales](#scales)", unsafe_allow_html=True)
-st.sidebar.markdown("[Research question](#research-question)", unsafe_allow_html=True)
-st.sidebar.markdown("[Conspiracy theories and demographics](#conspiracy-theories-and-demographics)", unsafe_allow_html=True)
-st.sidebar.markdown("[Conspiracy theories and personality traits](#conspiracy-theories-and-personality-traits)", unsafe_allow_html=True)
-st.sidebar.markdown("[Conspiracy theories and personality configurations](#conspiracy-theories-and-personality-configurations)", unsafe_allow_html=True)
+css_injection = '''<style>
+                          a{
+                            text-decoration: none; 
+                           }
+                    </style>'''
+st.sidebar.markdown(css_injection, unsafe_allow_html=True)
+st.sidebar.image('http://www.conspiracytheory.it/wp-content/uploads/2017/05/logo.png', width=100)
+st.sidebar.markdown("**[Background](#who-are-the-conspiracy-theorists)**", unsafe_allow_html=True)
+st.sidebar.markdown("**[Dataset](#dataset)**", unsafe_allow_html=True)
+st.sidebar.markdown("**[Data preprocessing](#data-preprocessing)**", unsafe_allow_html=True)
+st.sidebar.markdown("**[Data cleaning](#data-cleaning)**", unsafe_allow_html=True)
+st.sidebar.markdown("**[Data quality](#data-quality)**", unsafe_allow_html=True)
+st.sidebar.markdown("**[Partecipants](#partecipants)**", unsafe_allow_html=True)
+st.sidebar.markdown("**[Scales](#scales)**", unsafe_allow_html=True)
+st.sidebar.markdown("**[Research question](#research-question)**", unsafe_allow_html=True)
+st.sidebar.markdown("**[Conspiracy theories and demographics](#conspiracy-theories-and-demographics)**", unsafe_allow_html=True)
+st.sidebar.markdown("**[Conspiracy theories and personality traits](#conspiracy-theories-and-personality-traits)**", unsafe_allow_html=True)
+st.sidebar.markdown("**[Conspiracy theories and personality configurations](#conspiracy-theories-and-personality-configurations)**", unsafe_allow_html=True)
+st.sidebar.markdown("**[Conclusion](#conclusion)**", unsafe_allow_html=True)
 
 
 st.header('Who are the Conspiracy Theorists?')
